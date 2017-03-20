@@ -8,82 +8,130 @@
 
 import SpriteKit
 import GameplayKit
+import CoreMotion
 
+//var hero : Hero!
+var left : SKSpriteNode!
+var right : SKSpriteNode!
+var top : SKSpriteNode!
+var bottom : SKSpriteNode!
+var hero : SKSpriteNode!
+
+
+
+
+var val = 0
 class GameScene: SKScene {
-    
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+ 
+    let motionManager = CMMotionManager()
     
     override func didMove(to view: SKView) {
+        //manager.startGyroUpdates()
+        //manager.gyroUpdateInterval = 0.1
+//        
+//        if let error = error { // Might as well handle the optional error as well
+//            print(error.localizedDescription)
+//            return
+//        }
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+        
+        
+        
+//        manager.startGyroUpdates(to: OperationQueue.main){
+//            (data,error) in
+//           // self.physicsWorld.gravity = CGVector(x:data?.acceleration.x,y: data?.acceleration.y)
+//            if(CGFloat((data?.rotationRate.y)!) > 0.0){
+//                hero.position.x += 2.0
+//                
+//            }
+//            else if(CGFloat((data?.rotationRate.y)!) < 0.0){
+//                hero.position.x -= 2.0
+//                
+//            }
+        
+//        }
+        
+        
+        backgroundColor = UIColor.blue
+        loadWalls()
+        
+       
+        //backgroundColor = UIColor(red: 150/250, green: 200/250, blue: 244/255, alpha: 1.90)
+        //hero = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 50))
+        //hero.position = CGPoint(x:20 , y :-175 )
+        //addChild(hero)
+        
+        
+        hero = SKSpriteNode(imageNamed: "hero.png")
+        hero.position = CGPoint(x: self.frame.midX, y:self.frame.midY )
+        
+        hero.setScale(0.3)
+        hero.texture?.filteringMode = .nearest
+        hero.physicsBody = SKPhysicsBody(circleOfRadius: hero.size.width / 2) // You have to divide by 2 when using circleOfRadius to get proper size in relation to the sprite
+        hero.physicsBody?.allowsRotation = false
+        hero.physicsBody?.affectedByGravity = false
+        addChild(hero)
+        motionManager.startAccelerometerUpdates()
+        motionManager.accelerometerUpdateInterval = 0.1
+        motionManager.startAccelerometerUpdates(to: OperationQueue.main ) {
+            (data, error) in
+        guard let data = self.motionManager.accelerometerData else { return }
+        if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft {
+           // hero.physicsBody?.applyForce(CGVector(dx:-500 * CGFloat(data.acceleration.y), dy:0))
+            hero.physicsBody?.applyImpulse(CGVector(dx:-10 * CGFloat(data.acceleration.y), dy:0))
+        } else {
+            //hero.physicsBody?.applyForce(CGVector(dx: 500 * CGFloat(data.acceleration.y),dy:  0))
+            hero.physicsBody?.applyImpulse(CGVector(dx: 10 * CGFloat(data.acceleration.y),dy:  0))
+        }
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+//        buttonDirLeft = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 20))
+//        buttonDirLeft.position = CGPoint(x: -320, y: -180)
+//        buttonDirLeft.setScale(2.0)
+//        buttonDirLeft.alpha = 0.2
+//        self.addChild(buttonDirLeft)
+//        
+//        
+//        buttonDirRight = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 20))
+//        buttonDirRight.position = CGPoint(x: -260, y: -180)
+//        buttonDirRight.setScale(2.0)
+//        buttonDirRight.alpha = 0.2
+//        self.addChild(buttonDirRight)
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
+    func loadWalls(){
+        let wallColor = UIColor.white
+        let wallWidth : CGFloat = 20.0
+        
+        left = SKSpriteNode(color: wallColor, size: CGSize(width: wallWidth, height: self.frame.size.height))
+        left.physicsBody = SKPhysicsBody(rectangleOf: left.size)
+        left.physicsBody?.isDynamic = false;
+        left.position = CGPoint(x: -self.frame.size.width/2, y: 0)
+        addChild(left)
+        
+        
+        right = left.copy() as! SKSpriteNode
+        right.position = CGPoint(x: self.frame.size.width/2, y: 0)
+        addChild(right)
+        
+        
+        top = SKSpriteNode(color : wallColor , size : CGSize(width: self.frame.size.width,height: wallWidth))
+        top.physicsBody = SKPhysicsBody(rectangleOf: top.size)
+        top.physicsBody?.isDynamic = false;
+        top.position = CGPoint(x: 0, y:210 )
+        addChild(top)
+        
+        bottom = SKSpriteNode(color : .green , size : CGSize(width: self.frame.size.width,height: 150))
+        bottom.physicsBody = SKPhysicsBody(rectangleOf: bottom.size)
+        bottom.physicsBody?.isDynamic = false;
+        bottom.position = CGPoint(x:0, y:-205 )
+        addChild(bottom)
+        
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
 }
+    
+
