@@ -16,7 +16,7 @@ var right : SKSpriteNode!
 var top : SKSpriteNode!
 var bottom : SKSpriteNode!
 var hero : SKSpriteNode!
-
+var ball : SKShapeNode!
 
 
 
@@ -54,6 +54,7 @@ class GameScene: SKScene {
         
         backgroundColor = UIColor.blue
         loadWalls()
+        loadBall()
         
        
         //backgroundColor = UIColor(red: 150/250, green: 200/250, blue: 244/255, alpha: 1.90)
@@ -98,6 +99,19 @@ class GameScene: SKScene {
 //        buttonDirRight.setScale(2.0)
 //        buttonDirRight.alpha = 0.2
 //        self.addChild(buttonDirRight)
+        
+        
+    }
+    func loadBall(){
+      //  let ballColor = UIColor.red
+        let ballRad : CGFloat = 15.0
+        
+        ball = SKShapeNode(circleOfRadius: ballRad)
+        ball.fillColor = UIColor.red
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ballRad)
+        ball.physicsBody?.isDynamic = true;
+        ball.physicsBody?.restitution = 0.7
+        addChild(ball)
         
         
     }
