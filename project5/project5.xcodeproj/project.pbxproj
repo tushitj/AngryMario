@@ -19,6 +19,7 @@
 		179414F61E7F2F94006016F5 /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 179414F51E7F2F94006016F5 /* hero.png */; };
 		179414F91E7F41AB006016F5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179414F81E7F41AB006016F5 /* CoreMotion.framework */; };
 		17DD09E01E7DA00900901AE0 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DD09DF1E7DA00900901AE0 /* Hero.swift */; };
+		17EAAB511E839A910083DC21 /* sampleGameViewLearn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EAAB501E839A910083DC21 /* sampleGameViewLearn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		179414F51E7F2F94006016F5 /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero.png; sourceTree = "<group>"; };
 		179414F81E7F41AB006016F5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		17DD09DF1E7DA00900901AE0 /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		17EAAB501E839A910083DC21 /* sampleGameViewLearn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sampleGameViewLearn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				1713C5851E7A4174000A030B /* AppDelegate.swift */,
 				1713C5871E7A4174000A030B /* GameScene.sks */,
 				1713C58B1E7A4174000A030B /* GameScene.swift */,
+				17EAAB501E839A910083DC21 /* sampleGameViewLearn.swift */,
 				1713C58D1E7A4174000A030B /* GameViewController.swift */,
 				1713C58F1E7A4174000A030B /* Main.storyboard */,
 				1713C5921E7A4174000A030B /* Assets.xcassets */,
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1713C58C1E7A4174000A030B /* GameScene.swift in Sources */,
+				17EAAB511E839A910083DC21 /* sampleGameViewLearn.swift in Sources */,
 				1713C58E1E7A4174000A030B /* GameViewController.swift in Sources */,
 				1713C5861E7A4174000A030B /* AppDelegate.swift in Sources */,
 				17DD09E01E7DA00900901AE0 /* Hero.swift in Sources */,

@@ -146,6 +146,9 @@ class GameScene: SKScene {
         
     }
     
+    func jumpBall(){
+        ball.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
+    }
 }
     
 
