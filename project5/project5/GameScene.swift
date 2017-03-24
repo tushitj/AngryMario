@@ -18,50 +18,20 @@ var bottom : SKSpriteNode!
 var hero : SKSpriteNode!
 var ball : SKShapeNode!
 
+var leftCategory : UInt32 = 0x1 << 0
+var ballCategory : UInt32 = 0x1 << 1
 
 
 var val = 0
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
  
     let motionManager = CMMotionManager()
     
     override func didMove(to view: SKView) {
-        //manager.startGyroUpdates()
-        //manager.gyroUpdateInterval = 0.1
-//        
-//        if let error = error { // Might as well handle the optional error as well
-//            print(error.localizedDescription)
-//            return
-//        }
-        
-        
-        
-        
-//        manager.startGyroUpdates(to: OperationQueue.main){
-//            (data,error) in
-//           // self.physicsWorld.gravity = CGVector(x:data?.acceleration.x,y: data?.acceleration.y)
-//            if(CGFloat((data?.rotationRate.y)!) > 0.0){
-//                hero.position.x += 2.0
-//                
-//            }
-//            else if(CGFloat((data?.rotationRate.y)!) < 0.0){
-//                hero.position.x -= 2.0
-//                
-//            }
-        
-//        }
-        
-        
+       
         backgroundColor = UIColor.blue
         loadWalls()
         loadBall()
-        
-       
-        //backgroundColor = UIColor(red: 150/250, green: 200/250, blue: 244/255, alpha: 1.90)
-        //hero = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 50))
-        //hero.position = CGPoint(x:20 , y :-175 )
-        //addChild(hero)
-        
         
         hero = SKSpriteNode(imageNamed: "hero.png")
         hero.position = CGPoint(x: self.frame.midX, y:self.frame.midY )
@@ -87,21 +57,21 @@ class GameScene: SKScene {
         }
         
         
-//        buttonDirLeft = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 20))
-//        buttonDirLeft.position = CGPoint(x: -320, y: -180)
-//        buttonDirLeft.setScale(2.0)
-//        buttonDirLeft.alpha = 0.2
-//        self.addChild(buttonDirLeft)
-//        
-//        
-//        buttonDirRight = SKSpriteNode(color: UIColor.black ,size:CGSize(width:20 , height: 20))
-//        buttonDirRight.position = CGPoint(x: -260, y: -180)
-//        buttonDirRight.setScale(2.0)
-//        buttonDirRight.alpha = 0.2
-//        self.addChild(buttonDirRight)
+        physicsWorld.contactDelegate = self
         
         
     }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+     //   gets called automatically when two objects begin the contact
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        //gets called automatically when two objects end the contact with each other.
+    }
+    
+    
+    
     func loadBall(){
       //  let ballColor = UIColor.red
         let ballRad : CGFloat = 15.0
@@ -110,8 +80,15 @@ class GameScene: SKScene {
         ball.fillColor = UIColor.red
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ballRad)
         ball.physicsBody?.isDynamic = true;
+        ball.physicsBody?.usesPreciseCollisionDetection = true
+        ball.physicsBody?.categoryBitMask = ballCategory
+        ball.physicsBody?.collisionBitMask = leftCategory | ballCategory
+        ball.physicsBody?.contactTestBitMask = leftCategory | ballCategory
+        
+        
         ball.physicsBody?.restitution = 0.7
         addChild(ball)
+
         
         
     }
@@ -123,6 +100,8 @@ class GameScene: SKScene {
         left = SKSpriteNode(color: wallColor, size: CGSize(width: wallWidth, height: self.frame.size.height))
         left.physicsBody = SKPhysicsBody(rectangleOf: left.size)
         left.physicsBody?.isDynamic = false;
+        left.physicsBody?.usesPreciseCollisionDetection = true
+        left.physicsBody?.categoryBitMask = leftCategory
         left.position = CGPoint(x: -self.frame.size.width/2, y: 0)
         addChild(left)
         
@@ -147,8 +126,15 @@ class GameScene: SKScene {
     }
     
     func jumpBall(){
-        ball.physicsBody?.applyImpulse(<#T##impulse: CGVector##CGVector#>)
+        ball.physicsBody?.velocity = CGVector(dx: 0, dy: 10)
+        ball.physicsBody!.applyImpulse(CGVector(dx:3, dy:20))
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        jumpBall()
+    }
+    
+    
 }
     
 

@@ -83,5 +83,9 @@ class sampleGameViewLearn: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         cat.physicsBody?.velocity = CGVector(dx: 0, dy: 20)
         cat.physicsBody!.applyImpulse(CGVector(dx:0, dy:20))
+        
+        
+        
+        
     }
 }
