@@ -20,6 +20,9 @@ var ball : SKShapeNode = SKShapeNode()
 var moveball = 1;
 var leftCategory : UInt32 = 0
 var ballCategory : UInt32 = 0b1
+//var i = 0
+
+var gameOver = false;
 
 
 var val = 0
@@ -30,55 +33,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
        
         backgroundColor = UIColor.blue
+        loadHero()
         loadWalls()
         loadBall()
         
-        hero = SKSpriteNode(imageNamed: "hero.png")
-        hero.position = CGPoint(x: self.frame.midX, y:self.frame.midY )
         
-        hero.setScale(0.3)
-        hero.texture?.filteringMode = .nearest
-        hero.physicsBody = SKPhysicsBody(circleOfRadius: hero.size.width / 2) // You have to divide by 2 when using circleOfRadius to get proper size in relation to the sprite
-        hero.physicsBody?.allowsRotation = false
-        hero.physicsBody?.affectedByGravity = false
-        addChild(hero)
+        //Motion Manager. Hero Left Right Code
         motionManager.startAccelerometerUpdates()
         motionManager.accelerometerUpdateInterval = 0.1
         motionManager.startAccelerometerUpdates(to: OperationQueue.main ) {
             (data, error) in
         guard let data = self.motionManager.accelerometerData else { return }
         if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft {
-           // hero.physicsBody?.applyForce(CGVector(dx:-500 * CGFloat(data.acceleration.y), dy:0))
             hero.physicsBody?.applyImpulse(CGVector(dx:-10 * CGFloat(data.acceleration.y), dy:0))
         } else {
-            //hero.physicsBody?.applyForce(CGVector(dx: 500 * CGFloat(data.acceleration.y),dy:  0))
             hero.physicsBody?.applyImpulse(CGVector(dx: 10 * CGFloat(data.acceleration.y),dy:  0))
         }
         }
         
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(GameScene.jumpBall), userInfo: nil, repeats: true)
         
         physicsWorld.contactDelegate = self
         
         
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
-     //   gets called automatically when two objects begin the contact
     
-//        var bodyA : SKPhysicsBody!
-//        var bodyB : SKPhysicsBody!
-//        bodyA = contact.bodyA
-//        bodyB = contact.bodyB
-        
-//        if(contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask){
-//            bodyB = contact.bodyA
-//            bodyA = contact.bodyB
-//        }
-//        if (bodyA.categoryBitMask & leftCategory) != 0 && (bodyB.categoryBitMask & ballCategory != 0) {
-//            
-//            print("Collison")
-//        }
-//        
+    
+    
+    func didBegin(_ contact: SKPhysicsContact) {
     
     }
     
@@ -86,20 +69,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //gets called automatically when two objects end the contact with each other.
     }
     
-    
+    func loadHero(){
+        hero = SKSpriteNode(imageNamed: "hero.png")
+//        hero.position = CGPoint(x: self.frame.midX, y:self.frame.midY)
+        hero.position = CGPoint(x: self.frame.midX, y:bottom.size.height-100)
+        
+        hero.setScale(0.2)
+        hero.texture?.filteringMode = .nearest
+        hero.physicsBody = SKPhysicsBody(circleOfRadius: hero.size.width / 2) // You have to divide by 2 when using circleOfRadius to get proper size in relation to the sprite
+        hero.physicsBody?.allowsRotation = false
+        hero.physicsBody?.affectedByGravity = false
+        let yConstraint = SKConstraint.positionY(SKRange(constantValue: bottom.size.height-100))
+        hero.constraints = [yConstraint]
+        addChild(hero)
+
+    }
     
     func loadBall(){
       //  let ballColor = UIColor.red
         let ballRad : CGFloat = 15.0
-        
+        ball.position = CGPoint(x:self.frame.midX+1 , y: self.frame.midY+40)
         ball = SKShapeNode(circleOfRadius: ballRad)
         ball.fillColor = UIColor.red
         ball.physicsBody = SKPhysicsBody(circleOfRadius: ballRad)
         ball.physicsBody?.isDynamic = true;
-        //ball.physicsBody?.usesPreciseCollisionDetection = true
-       // ball.physicsBody?.categoryBitMask = ballCategory
-        //ball.physicsBody?.collisionBitMask = 0
-       // ball.physicsBody?.contactTestBitMask = leftCategory
         
         
         ball.physicsBody?.restitution = 0.7
@@ -116,10 +109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         left = SKSpriteNode(color: wallColor, size: CGSize(width: wallWidth, height: self.frame.size.height))
         left.physicsBody = SKPhysicsBody(rectangleOf: left.size)
         left.physicsBody?.isDynamic = false;
-        //left.physicsBody?.usesPreciseCollisionDetection = true
-        //left.physicsBody?.categoryBitMask = leftCategory
-        //left.physicsBody?.contactTestBitMask = ballCategory
-        //left.physicsBody?.collisionBitMask = 0
         left.position = CGPoint(x: -self.frame.size.width/2, y: 0)
         addChild(left)
         
@@ -158,13 +147,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         jumpBall()
     }
     
+
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if(ball.position == hero.position){
+            gameOver = true;
+        }
+        
         if(ball.position.x < -self.frame.size.width/2+25){
             moveball = 0;
         }
         else if(ball.position.x > self.frame.size.width/2-25){
             moveball = 1;
+        }
+        
+        if(gameOver == true){
+            print("Game is over")
         }
     }
     
