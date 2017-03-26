@@ -18,6 +18,7 @@
 		1713C5AC1E7A4174000A030B /* project5UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1713C5AB1E7A4174000A030B /* project5UITests.swift */; };
 		179414F61E7F2F94006016F5 /* hero.png in Resources */ = {isa = PBXBuildFile; fileRef = 179414F51E7F2F94006016F5 /* hero.png */; };
 		179414F91E7F41AB006016F5 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 179414F81E7F41AB006016F5 /* CoreMotion.framework */; };
+		17A225521E8838FB00FD3982 /* BayMaxSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A225511E8838FB00FD3982 /* BayMaxSample.swift */; };
 		17DD09E01E7DA00900901AE0 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DD09DF1E7DA00900901AE0 /* Hero.swift */; };
 		17EAAB511E839A910083DC21 /* sampleGameViewLearn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EAAB501E839A910083DC21 /* sampleGameViewLearn.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		1713C5AD1E7A4174000A030B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		179414F51E7F2F94006016F5 /* hero.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hero.png; sourceTree = "<group>"; };
 		179414F81E7F41AB006016F5 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		17A225511E8838FB00FD3982 /* BayMaxSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BayMaxSample.swift; sourceTree = "<group>"; };
 		17DD09DF1E7DA00900901AE0 /* Hero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		17EAAB501E839A910083DC21 /* sampleGameViewLearn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sampleGameViewLearn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +124,7 @@
 				1713C5971E7A4174000A030B /* Info.plist */,
 				17DD09DF1E7DA00900901AE0 /* Hero.swift */,
 				179414F51E7F2F94006016F5 /* hero.png */,
+				17A225511E8838FB00FD3982 /* BayMaxSample.swift */,
 			);
 			path = project5;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				1713C58E1E7A4174000A030B /* GameViewController.swift in Sources */,
 				1713C5861E7A4174000A030B /* AppDelegate.swift in Sources */,
 				17DD09E01E7DA00900901AE0 /* Hero.swift in Sources */,
+				17A225521E8838FB00FD3982 /* BayMaxSample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
