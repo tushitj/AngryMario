@@ -94,12 +94,17 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        let velocity = duck.physicsBody?.velocity
-        let angVel = duck.physicsBody?.angularVelocity
-        
-        if velocity?.dx <= 0 && velocity?.dy <= 0 && angVel <= 0{
-            
+        if let velocity = duck.physicsBody?.velocity, let angVel = duck.physicsBody?.angularVelocity {
+            if velocity.dx <= 0 && velocity.dy <= 0 && angVel <= 0 && hasGone {
+                duck.physicsBody?.affectedByGravity = false
+                duck.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+                duck.physicsBody?.angularVelocity = 0
+                duck.position = originalDuckPos
+                duck.zRotation = 0
+                hasGone = false
+            }
         }
+        
     }
     
 }
