@@ -12,7 +12,7 @@ import GameplayKit
 class GameScene: SKScene {
     
     var duck: SKSpriteNode!
-    
+    var hasGone = false
     override func didMove(to view: SKView) {
         duck = childNode(withName: "duck") as! SKSpriteNode
         duck.physicsBody?.affectedByGravity = false;
@@ -23,20 +23,43 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if let touch = touches.first{
-            let touchLocation = touch.location(in: self)
-            let touchedWhere = nodes(at: touchLocation)
-            
-            if !touchedWhere.isEmpty {
-                for node in touchedWhere {
-                    if let sprite = node as? SKSpriteNode {
-                        if sprite == duck {
-                            duck.position = touchLocation
+        if !hasGone {
+            if let touch = touches.first{
+                let touchLocation = touch.location(in: self)
+                let touchedWhere = nodes(at: touchLocation)
+                
+                if !touchedWhere.isEmpty {
+                    for node in touchedWhere {
+                        if let sprite = node as? SKSpriteNode {
+                            if sprite == duck {
+                                duck.position = touchLocation
+                            }
                         }
                     }
                 }
             }
+            
+        }
+      
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !hasGone {
+            if let touch = touches.first{
+                let touchLocation = touch.location(in: self)
+                let touchedWhere = nodes(at: touchLocation)
+                
+                if !touchedWhere.isEmpty {
+                    for node in touchedWhere {
+                        if let sprite = node as? SKSpriteNode {
+                            if sprite == duck {
+                                duck.position = touchLocation
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
     }
     
