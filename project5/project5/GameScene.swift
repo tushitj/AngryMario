@@ -82,6 +82,7 @@ class GameScene: SKScene {
                                 
                                 duck.physicsBody?.affectedByGravity = true
                                 duck.physicsBody?.applyImpulse(impulse)
+                                duck.physicsBody?.applyAngularImpulse(-0.01)
                                 hasGone = true
                                 
                             }
@@ -89,6 +90,15 @@ class GameScene: SKScene {
                     }
                 }
             }
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        let velocity = duck.physicsBody?.velocity
+        let angVel = duck.physicsBody?.angularVelocity
+        
+        if velocity?.dx <= 0 && velocity?.dy <= 0 && angVel <= 0{
+            
         }
     }
     
