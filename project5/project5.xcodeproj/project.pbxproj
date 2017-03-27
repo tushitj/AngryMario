@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		174A92851E8999F700302DAF /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 174A92841E8999F700302DAF /* music.mp3 */; };
 		178300F21E89618D00ECD65C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 178300F11E89618D00ECD65C /* Assets.xcassets */; };
 		178300F61E896A6000ECD65C /* background_launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 178300F51E896A6000ECD65C /* background_launch.png */; };
 		178300F91E896DD800ECD65C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 178300F71E896DD800ECD65C /* LaunchScreen.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		174A92841E8999F700302DAF /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		178300F11E89618D00ECD65C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		178300F51E896A6000ECD65C /* background_launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_launch.png; sourceTree = "<group>"; };
 		178300F81E896DD800ECD65C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				17A225CF1E8897AA00FD3982 /* Actions.sks */,
 				178300F11E89618D00ECD65C /* Assets.xcassets */,
 				17A225D11E8897AA00FD3982 /* GameScene.swift */,
+				174A92841E8999F700302DAF /* music.mp3 */,
 				17A225D31E8897AA00FD3982 /* GameViewController.swift */,
 				17A225D51E8897AA00FD3982 /* Main.storyboard */,
 				178300F51E896A6000ECD65C /* background_launch.png */,
@@ -250,6 +253,7 @@
 				17A225D71E8897AA00FD3982 /* Main.storyboard in Resources */,
 				17A225CE1E8897AA00FD3982 /* GameScene.sks in Resources */,
 				17A225D01E8897AA00FD3982 /* Actions.sks in Resources */,
+				174A92851E8999F700302DAF /* music.mp3 in Resources */,
 				178300F91E896DD800ECD65C /* LaunchScreen.storyboard in Resources */,
 				178300F61E896A6000ECD65C /* background_launch.png in Resources */,
 				178300F21E89618D00ECD65C /* Assets.xcassets in Resources */,

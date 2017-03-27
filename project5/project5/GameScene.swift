@@ -12,9 +12,16 @@ import GameplayKit
 class GameScene: SKScene {
     
     var duck: SKSpriteNode!
+    var backgroundMusic: SKAudioNode!
     var hasGone = false
     var originalDuckPos : CGPoint!
+    
+    
     override func didMove(to view: SKView) {
+        if let musicURL = Bundle.main.url(forResource: "music", withExtension: "mp3") {
+            backgroundMusic = SKAudioNode(url: musicURL)
+            addChild(backgroundMusic)
+        }
         duck = childNode(withName: "duck") as! SKSpriteNode
        // duck.physicsBody?.affectedByGravity = false;
         originalDuckPos = duck.position
